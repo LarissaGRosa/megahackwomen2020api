@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework.authtoken.models import Token
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,11 +11,12 @@ from apirules.models import Perfil
 
 class LoginView(APIView):
     permission_classes = ()
+    parser_classes = [JSONParser]
     authentication_classes = ()
 
-    def post(self, request):
-        username = request.data["username"]
-        password = request.data["password"]
+    def post( self, request, format=None):
+        username = request.data.get("username")
+        password = request.data.get("password")
         user = authenticate(username=username, password=password)
 
         if user:
@@ -28,14 +30,15 @@ class LoginView(APIView):
 
 class Createuser(APIView):
     permission_classes = ()
+    parser_classes = JSONParser
     authentication_classes = ()
 
-    def post(self, request):
-        username = request.data["username"]
-        password = request.data["password"]
-        email = request.data["email"]
-        cnpj = request.data["cnpj"]
-        nome = request.data["nome"]
+    def post(self, request, format=None):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        email = request.data.get("email")
+        cnpj = request.data.get("cnpj")
+        nome = request.data.get("nome")
         user = User.objects.create_user(
             username=username,
             email=email,
