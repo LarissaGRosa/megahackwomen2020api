@@ -13,8 +13,8 @@ class LoginView(APIView):
     authentication_classes = ()
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
+        username = request.data["username"]
+        password = request.data["password"]
         user = authenticate(username=username, password=password)
 
         if user:
@@ -31,11 +31,11 @@ class Createuser(APIView):
     authentication_classes = ()
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        email = request.data.get("email")
-        cnpj = request.data.get("cnpj")
-        nome = request.data.get("nome")
+        username = request.data["username"]
+        password = request.data["password"]
+        email = request.data["email"]
+        cnpj = request.data["cnpj"]
+        nome = request.data["nome"]
         user = User.objects.create_user(
             username=username,
             email=email,
