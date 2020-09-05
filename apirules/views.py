@@ -9,6 +9,7 @@ from apirules.models import Perfil
 
 
 class LoginView(APIView):
+    authentication_classes = ()
     permission_classes = ()
 
     def post(self, request):
@@ -19,6 +20,7 @@ class LoginView(APIView):
 
 
 class Createuser(APIView):
+    authentication_classes = ()
     permission_classes = ()
 
     def post(self, request):
