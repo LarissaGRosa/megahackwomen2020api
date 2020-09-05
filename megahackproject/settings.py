@@ -25,7 +25,7 @@ SECRET_KEY = '-2n^l)k&m2nk0&c9thckahj$syf@jas(0ri0(lf2tna1!r0ik%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['larigr.pythonanywhere.com']
+ALLOWED_HOSTS = ['larigr.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition

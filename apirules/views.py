@@ -9,18 +9,23 @@ from apirules.models import Perfil
 
 
 class LoginView(APIView):
-    authentication_classes = ()
     permission_classes = ()
 
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
-        return Response({"token": user.auth_token.key, "nome":user.username})
+
+        if user:
+            try:
+                token = Token.objects.get(user=user)
+            except:
+                token = Token.objects.create(user=user)
+
+            return Response({"token": user.auth_token.key, "nome":user.username})
 
 
 class Createuser(APIView):
-    authentication_classes = ()
     permission_classes = ()
 
     def post(self, request):
