@@ -5,6 +5,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apirules.models import Perfil
+
 
 class LoginView(APIView):
     permission_classes = ()
@@ -30,6 +32,8 @@ class Createuser(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
         email = request.data.get("email")
+        cnpj = request.data.get("cnpj")
+        nome = request.data.get("nome")
         user = User.objects.create_user(
             username=username,
             email=email,
@@ -37,7 +41,16 @@ class Createuser(APIView):
 
         )
         user.save()
-        if user.username:
+        perfil = Perfil.objects.create(
+            user=user,
+            nome=nome,
+            pontuacao=0,
+            nivel=0,
+            cnpj=cnpj
+        )
+        perfil.save()
+
+        if user.username and perfil.nome:
             return Response({"status": "Você foi cadastrado com sucesso", "code": "1"})
         else:
             return Response({"status": "Erro no cadastro, tente novamente", "code": "0"})
