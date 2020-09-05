@@ -15,14 +15,7 @@ class LoginView(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
-
-        if user:
-            try:
-                token = Token.objects.get(user=user)
-            except:
-                token = Token.objects.create(user=user)
-
-            return Response({"token": user.auth_token.key, "nome":user.username})
+        return Response({"token": user.auth_token.key, "nome":user.username})
 
 
 class Createuser(APIView):
