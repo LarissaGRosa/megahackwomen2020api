@@ -30,7 +30,6 @@ class LoginView(APIView):
 
 class Createuser(APIView):
     permission_classes = ()
-    parser_classes = JSONParser
     authentication_classes = ()
 
     def post(self, request, format=None):
