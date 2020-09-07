@@ -34,15 +34,13 @@ class Createuser(APIView):
     authentication_classes = ()
 
     def post(self, request, format=None):
-        username = request.data.get("username")
         password = request.data.get("password")
         email = request.data.get("email")
         cnpj = request.data.get("cnpj")
         nome = request.data.get("nome")
         produtos = request.data.get("produtos")
-        listprodutos = produtos.split(",")
         user = User.objects.create_user(
-            username=username,
+            username=email,
             email=email,
             password=password,
 
@@ -56,9 +54,6 @@ class Createuser(APIView):
             cnpj=cnpj
         )
         perfil.save()
-        for p in listprodutos:
-            produto = Produtos.objects.create(user=perfil, nome=p)
-            produto.save()
 
         if user.username and perfil.nome:
             return Response({"status": "Você foi cadastrado com sucesso", "code": "1"})
