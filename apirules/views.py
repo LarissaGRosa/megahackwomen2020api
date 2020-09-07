@@ -26,7 +26,7 @@ class LoginView(APIView):
             except:
                 token = Token.objects.create(user=user)
 
-            return Response({"token": user.auth_token.key, "nome":user.username})
+            return Response({"token": user.auth_token.key, "nome": user.perfil.nome})
 
 
 class Createuser(APIView):
